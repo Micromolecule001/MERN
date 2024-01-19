@@ -1,6 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+
+import authRouter from "./routes/auth.js";
 
 const app = express();
 dotenv.config();
@@ -12,6 +15,12 @@ const DB_PASS = process.env.DB_PASS;
 const DB_NAME = process.env.DB_NAME;
 
 
+// Middlewares
+app.use(cors()); // sending requests from different ip addresses
+app.use(express.json()); // for parsing json
+
+// Routes
+app.use('/api/auth', authRouter)
 
 app.listen(5000, () => console.log("Server Running on port 5000"))
 
